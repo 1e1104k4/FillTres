@@ -5,6 +5,8 @@
 //  Created by Leila on 2/26/24.
 //
 
+import CoreImage
+import CoreImage.CIFilterBuiltins
 import PhotosUI
 import SwiftUI
 
@@ -12,6 +14,9 @@ struct ContentView: View {
     @State private var processedImage: Image?
     @State private var filterIntensity = 0.5
     @State private var selectedItem: PhotosPickerItem?
+    
+    @State private var currentFilter = CIFilter.sepiaTone()
+    let context = CIContext()
     
     var body: some View {
         NavigationStack {
@@ -61,6 +66,16 @@ struct ContentView: View {
             
             // .....
         }
+    }
+    
+    func applyProcessing() {
+        currentFilter.intensity = Float(filterIntensity)
+        
+        guard let outputImage = currentFilter.outputImage else { return }
+        guard let cgImage = context.createCGImage(outputImage, from: outputImage.extent) else { return }
+        
+        let uiImage = UIImage(cgImage: cgImage)
+        processedImage = Image(uiImage: uiImage)
     }
 }
 
