@@ -49,7 +49,9 @@ struct ContentView: View {
                     
                     Spacer()
                     
-                    // share pic
+                    if let processedImage {
+                        ShareLink(item: processedImage, preview: SharePreview("FillTres image", image: processedImage))
+                    }
                 }
             }
             .padding([.horizontal, .bottom])
