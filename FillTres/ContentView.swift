@@ -13,7 +13,11 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var processedImage: Image?
+    
     @State private var filterIntensity = 0.5
+    @State private var filterRadius = 3.0
+    @State private var filterScale = 5.0
+    
     @State private var selectedItem: PhotosPickerItem?
     @State private var showingFilters = false
     
